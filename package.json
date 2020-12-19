@@ -1,0 +1,19 @@
+{
+  "name": "nodejstest",
+  "version": "1.0.0",
+  "description": "노드 테스트입니다.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jimbustas/nodejsTest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jimbustas/nodejsTest/issues"
+  },
+  "homepage": "https://github.com/jimbustas/nodejsTest#readme"
+}
