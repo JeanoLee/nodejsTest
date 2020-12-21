@@ -5,3 +5,6 @@ block content
     p 블록 해시    : #{block.hash}
     p 블록 생성시간 : #{block.time}
     p 트랜잭션 개수 : #{block.txCount} 개
+    ul
+        each tx in block.transactions
+            li= tx.hash
