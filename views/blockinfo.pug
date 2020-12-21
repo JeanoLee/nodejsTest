@@ -1,0 +1,7 @@
+extends layout
+
+block content
+    h1 # #{block.number} 블록
+    p 블록 해시    : #{block.hash}
+    p 블록 생성시간 : #{block.time}
+    p 트랜잭션 개수 : #{block.txCount} 개
