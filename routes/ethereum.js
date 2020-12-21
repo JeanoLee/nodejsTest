@@ -31,4 +31,28 @@ router.get('/getBlock', function(req, res, next) {
     })
 });
 
+router.get('/getTx/:txhash', function(req, res, next){
+    var txHash = req.params.txhash
+    //트랜잭션 정보를 보여주는 기능 구현
+
+    // transaction Receipt
+    web3.eth.getTransactionReceipt( txHash , function(err,receipt){
+        web3.eth.getTransaction( txHash, function(err,tx){
+            web3.eth.getBlock(tx.blockHash,false, function(err, block){
+                var data={time:0,fee:0}
+                var datetime = block.timestamp*1000;
+
+                data.time = new Date(datetime).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"})
+                data.fee = tx.gasPrice * receipt.gasUsed
+                data.fee = web3.utils.fromWei(data.fee.toString(),'ether')
+                tx.gasPrice = web3.utils.fromWei(tx.gasPrice,'ether') + "("+ web3.utils.fromWei(tx.gasPrice,'gwei')+"gwei)"
+
+                res.render('txInfo',{tx : tx, receipt : receipt, data : data});
+            })
+        })
+    })
+});
+
+
+
 module.exports = router;
