@@ -7,4 +7,5 @@ block content
     p 트랜잭션 개수 : #{block.txCount} 개
     ul
         each tx in block.transactions
-            li= tx.hash
+            li
+                a(href="http://ropsten.etherscan.io/tx/"+tx.hash) #{tx.hash}
