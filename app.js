@@ -18,6 +18,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//웹서비스에서 보여줄 파일(이미지, 동영상, 파일, CSS, 자바스크립트 파일 등)을 저장하고있는 위치
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
