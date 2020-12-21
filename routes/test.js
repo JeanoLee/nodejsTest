@@ -33,6 +33,9 @@ fetch(url, options)
     var datetime = json[0].trade_date_utc +" "+ json[0].trade_time_utc
 
     datetime = Date.parse(datetime)
+    //           msec sec min hour
+    // KST = UTC+9
+    datetime += (1000*60*60*9)
     datetime = new Date(datetime).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"})
 
     res.render('btcprice',
@@ -41,10 +44,7 @@ fetch(url, options)
         time:datetime,
       });
   })
-  .catch(err => console.error('error:' + err));
-
-
-  
+  .catch(err => console.error('error:' + err));  
 })
 
 router.get('/calculate', function(req,res,next) {
