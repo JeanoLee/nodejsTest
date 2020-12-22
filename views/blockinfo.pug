@@ -8,4 +8,4 @@ block content
     ul
         each tx in block.transactions
             li
-                a(href="http://ropsten.etherscan.io/tx/"+tx.hash) #{tx.hash}
+                a(href="/eth/getTx/"+tx.hash) #{tx.hash}
