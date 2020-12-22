@@ -67,11 +67,16 @@ router.get('/getTx/:txhash', function(req, res, next){
 });
 
 router.get('/transferEth', function(req, res, next){
-    var account = {
-        address: '0x12345',
-        balance: 1000
+    var private_key = process.env.ETH_PRIVATE_KEY;
+    var _account = web3.eth.accounts.privateKeyToAccount(private_key)
+
+    account = {
+        address : _account.address,
+        balance : 1000
     }
+
     res.render('transferEth',{account:account})
 })
+
 
 module.exports = router;
