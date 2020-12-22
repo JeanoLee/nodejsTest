@@ -37,8 +37,20 @@ router.get('/getTx/:txhash', function(req, res, next){
 
     // transaction Receipt
     web3.eth.getTransactionReceipt( txHash , function(err,receipt){
+        if(err){
+            next(err)
+            return
+        }
         web3.eth.getTransaction( txHash, function(err,tx){
+            if(err){
+                next(err)
+                return
+            }
             web3.eth.getBlock(tx.blockHash,false, function(err, block){
+                if(err){
+                    next(err)
+                    return
+                }
                 var data={time:0,fee:0}
                 var datetime = block.timestamp*1000;
 
