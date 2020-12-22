@@ -80,7 +80,7 @@ router.get('/transferEth', function(req, res, next){
     })
 })
 
-router.post('/transferEth', function(res,req,next){
+router.post('/transferEth', function(req,res,next){
     res.send("test")
 })
 
