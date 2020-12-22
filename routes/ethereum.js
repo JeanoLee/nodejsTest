@@ -101,6 +101,10 @@ router.post('/transferEth', function(req,res,next){
                 return
             }
             web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(err,hash){
+                if(err) {
+                    next(err)
+                    return
+                }
                 res.redirect("https://ropsten.etherscan.io/tx/"+hash)
             })
         })
