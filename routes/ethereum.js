@@ -100,12 +100,23 @@ router.post('/transferEth', function(req,res,next){
                 next(err)
                 return
             }
-            web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(err,hash){
-                if(err) {
-                    next(err)
-                    return
+            
+
+            web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+            .on('transactionHash', function(hash){
+                console.log(hash);
+            })
+            .on('receipt',function(receipt){
+                console.log("Transcation send Finished")
+            })
+            .on('confirmation', function(confirmationNumber, receipt){
+                console.log( '#',confirmationNumber ,"Confirmed")
+                if(confirmationNumber >= 6){
+                    res.redirect("https://ropsten.etherscan.io/tx/"+receipt.transactionHash)
                 }
-                res.redirect("https://ropsten.etherscan.io/tx/"+hash)
+            })
+            .on('error', function(err){
+                next(error)
             })
         })
     })
