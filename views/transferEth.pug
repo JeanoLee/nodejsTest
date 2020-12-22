@@ -5,10 +5,10 @@ block content
     p 당신의 지갑 주소는 #{account.address}
     p 현재 보유하고 계신 이더리움은 #{account.balance} 입니다
 
-    form( action="..." method='POST')
-    p 
-        | 받을 사람 주소
-        input(type='text' name='address' value='' placeholder="0x1234" )
-        | 보내실 금액
-        input(type='number' name='amount'  placeholder="0")
-    input(type='submit')
+    form( action="/eth/transferEht" method='POST')
+        p 
+            | 받을 사람 주소
+            input(type='text' name='address' value='' placeholder="0x1234" )
+            | 보내실 금액
+            input(type='number' name='amount'  placeholder="0")
+        input(type='submit' value="ETH 전송")

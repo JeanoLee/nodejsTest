@@ -80,5 +80,9 @@ router.get('/transferEth', function(req, res, next){
     })
 })
 
+router.post('/transferEth', function(res,req,next){
+    res.send("test")
+})
+
 
 module.exports = router;
