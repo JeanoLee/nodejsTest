@@ -1,4 +1,5 @@
 var express = require('express');
+const { render } = require('pug');
 var router = express.Router();
 
 require('dotenv').config();
@@ -65,6 +66,12 @@ router.get('/getTx/:txhash', function(req, res, next){
     })
 });
 
-
+router.get('/transferEth', function(req, res, next){
+    var account = {
+        address: '0x12345',
+        balance: 1000
+    }
+    res.render('transferEth',{account:account})
+})
 
 module.exports = router;
