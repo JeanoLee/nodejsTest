@@ -99,7 +99,9 @@ router.post('/transferEth', function(req,res,next){
                 next(err)
                 return
             }
-            res.send(signedTx);
+            web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(err,hash){
+                res.send(hash);
+            })
         })
 
     })
