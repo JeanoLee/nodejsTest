@@ -86,11 +86,12 @@ router.post('/transferEth', function(req,res,next){
     var _account = web3.eth.accounts.privateKeyToAccount(private_key)
 
     web3.eth.getTransactionCount(_account.address, function(err,nonce){
+        var gasPrice = web3.utils.toWei(transferInfo.gasPrice,'gwei')
         var rawTx={
             nonce: web3.utils.toHex(nonce),
             from: _account.address,
             gasLimit: web3.utils.toHex(25000),
-            gasPrice: web3.utils.toHex(10e9),
+            gasPrice: web3.utils.toHex(gasPrice),
             to : transferInfo.address,
             value : web3.utils.toWei(transferInfo.amount,'ether')
         }
