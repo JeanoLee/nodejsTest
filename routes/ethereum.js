@@ -81,7 +81,30 @@ router.get('/transferEth', function(req, res, next){
 })
 
 router.post('/transferEth', function(req,res,next){
-    res.send("test")
+    var transferInfo = req.body
+    var private_key = process.env.ETH_PRIVATE_KEY;
+    var _account = web3.eth.accounts.privateKeyToAccount(private_key)
+
+    web3.eth.getTransactionCount(_account.address, function(err,nonce){
+        var rawTx={
+            nonce: web3.utils.toHex(nonce),
+            from: _account.address,
+            gasLimit: web3.utils.toHex(25000),
+            gasPrice: web3.utils.toHex(10e9),
+            to : transferInfo.address,
+            value : web3.utils.toWei(transferInfo.amount,'ether')
+        }
+        _account.signTransaction(rawTx, function( err, signedTx){
+            if(err){
+                next(err)
+                return
+            }
+            res.send(signedTx);
+        })
+
+    })
+    
+
 })
 
 
