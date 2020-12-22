@@ -70,12 +70,14 @@ router.get('/transferEth', function(req, res, next){
     var private_key = process.env.ETH_PRIVATE_KEY;
     var _account = web3.eth.accounts.privateKeyToAccount(private_key)
 
-    account = {
-        address : _account.address,
-        balance : 1000
-    }
+    web3.eth.getBalance(_account.address, function(err,balance){
 
-    res.render('transferEth',{account:account})
+        var account = {
+            address : _account.address,
+            balance : web3.utils.fromWei(balance,'ether')
+        }
+        res.render('transferEth',{account:account})
+    })
 })
 
 
