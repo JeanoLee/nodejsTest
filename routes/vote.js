@@ -18,11 +18,12 @@ router.get("/", function(req,res,next){
     var voteFactoryAbi = JSON.parse( fs.readFileSync('abis/voteFactory.abi.json') )
     var voteFactoryContract = new web3.eth.Contract(voteFactoryAbi, process.env.CONTRACT_ADDR_VOTE)
 
-    voteFactoryContract.methods.countOfVote().call()
+    // ** 컨트랙트를 호출하는 두가지 방법
     // call() : 상수함수들 view/pure, public으로 지정된 상태변수
     // send() : 그 외의 함수들(상태변수를 변경하는 함수들) 
     //        : 트랜잰션을 만들어서 전송함. ** Private Key가 필요
 
+    voteFactoryContract.methods.countOfVote().call()
     .then( function(result){
 
         var data = {
