@@ -7,4 +7,6 @@ block content
     ul
         each vote in data.votelist
             li
-                a(href="#") #{vote.title}
+                a(href="https://ropsten.etherscan.io/address/"+vote.address) #{vote.title}
+                p 총 투표수 : #{vote.votingCount}
+                p 투표마감 : #{vote.voteClosing}

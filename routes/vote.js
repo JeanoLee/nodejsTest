@@ -10,6 +10,8 @@ const Web3 = require('web3')
 let web3 = new Web3(
     new Web3.providers.WebsocketProvider(process.env.INFURA_RPC_URL)
 )
+let voteAbi = JSON.parse( fs.readFileSync('abis/vote.abi.json'))
+let voteContract = new web3.eth.Contract( voteAbi, "0x0000000000000000000000000000000000000000")
 
 
 //localhost:3000/vote
@@ -50,15 +52,20 @@ router.get("/", async function(req,res,next){
     }
     for(let i=0;i<count;i++){
         let voteAddress = voteAddressList[i]
-        let voteAbi = JSON.parse( fs.readFileSync('abis/vote.abi.json'))
-        let voteContract = new web3.eth.Contract( voteAbi, voteAddress)
+        voteContract.options.address = voteAddress
         let title = await voteContract.methods.title().call()
+        let votingCount = await voteContract.methods.voteCount().call();
+        let voteClosing = await voteContract.methods.timeLimit().call(); // sec 단위
+        voteClosing = new Date(voteClosing*1000).toLocaleString("ko-KR", {timeZone: "Asia/Seoul"})
+                                  //msec 단위
         titleList.push({
-            title : title
+            title : title,
+            votingCount:votingCount,
+            voteClosing:voteClosing,
+            address:voteAddress
         });
     }
-
-       
+      
     var data = {
         factory : {
             address :process.env.CONTRACT_ADDR_VOTE,
