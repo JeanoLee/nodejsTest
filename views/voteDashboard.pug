@@ -1,0 +1,10 @@
+
+extends layout
+
+block content
+    h1 투표 리스트 (Factory: #{data.factory.address})
+    p 개설된 투표 수 #{data.factory.count}
+    ul
+        each vote in data.votelist
+            li
+                a(href="#") #{vote.title}
