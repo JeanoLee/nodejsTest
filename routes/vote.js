@@ -105,6 +105,7 @@ router.get("/:id", async function(req,res,next){
     }
 
     let data = {
+        contractAddress: voteAddress,
         title:title,
         votingCount : votingCount,
         votingClose : voteClosing,
