@@ -249,8 +249,9 @@ block content
             // Transation Data 생성
             //  - InputData 인코딩 (Contract ABI, web3js)
             abi = JSON.parse(document.getElementById('voteABI').innerHTML)
-            contractAddress = document.getElementById('contractAddress').value
-            input_data=''
+            contractAddress = document.getElementById('contractAddress').innerHTML
+            contract = new web3.eth.Contract(abi,contractAddress)
+            input_data= contract.methods.vote(checked.value).encodeABI();
             ethereum.request( {
                 method : 'eth_sendTransaction',
                 params :[{
