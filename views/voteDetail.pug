@@ -1,8 +1,25 @@
 extends layout
 
-block content
 
+
+
+block content
+    script.
+        var account=""
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.request({ method: 'eth_requestAccounts' }).then((result)=>{
+                account = result[0]
+                console.log(result)
+                document.getElementById('metamask_id').innerHTML = account
+            })
+            
+            
+        }
+
+    
     h1 #{title}
+    h2 현재 접속중인 EthereumAccount
+        p(id = 'metamask_id') 
     p 현재 투표 수 : #{votingCount}
     p 투표 종료시간 : #{votingClose}
     form(action="", method="post")
