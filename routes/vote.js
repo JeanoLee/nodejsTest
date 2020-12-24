@@ -97,9 +97,10 @@ router.get("/:id", async function(req,res,next){
 
     for(let i=0; i<num_subjectItem ;i++){
         subjectTitle = await voteContract.methods.subjectList(i).call();
+        point = await voteContract.methods.subjectItems(subjectTitle).call()
         subjectList.push({
             title:subjectTitle,
-            point:10+i
+            point:point
         })
     }
 
@@ -112,4 +113,6 @@ router.get("/:id", async function(req,res,next){
     }
     res.render('voteDetail',data)
 })
+
+
 module.exports = router;
