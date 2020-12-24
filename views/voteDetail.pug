@@ -16,11 +16,33 @@ block content
 
         ethereum.on('accountsChanged', (accounts)=>{
             prev_account = document.getElementById('metamask_id').innerHTML;
-            alert("계정정보가 바뀌었습니다. ("
-                    +prev_account +") -> ("
-                    +accounts[0]+")")
+            if(prev_account!=" "){
+                console.log(prev_account)
+                alert("계정정보가 바뀌었습니다. ("
+                        +prev_account +") -> ("
+                        +accounts[0]+")")
+            }
             document.getElementById('metamask_id').innerHTML = accounts[0]
         })
+        ethereum.on('chainChanged',(chainId)=>{
+            if(chainId != '0x3'){
+                alert("이더리움 네트워크가 "+chainId+"변경되었습니다. Ropsten Network가 아니면 사용에 제약이 있습니다.")
+            }else{
+                alert("Ropsten Network에 연결되었습니다.")
+            }
+        })
+
+        function Vote(){
+            
+            
+            // 어떤걸 선택했는지 확인
+            checked = document.querySelector('input[name="subject"]:checked')
+            alert(checked.value)
+
+            // Transation Data 생성
+            
+            // 메타마스크에 트랜잭션 전송 요청
+        }
 
     
     h1 #{title}
@@ -30,8 +52,8 @@ block content
     p 투표 종료시간 : #{votingClose}
     form(action="", method="post")
         each subject in subjectList
-            input(type="radio", name="subject" )
+            input(type="radio", name="subject" value=subject.title)
             |#{subject.title} (투표 수: #{subject.point})
     
-    input(type="submit", value="투표")
+    input(type="submit", value="투표" onClick="Vote()")
 
