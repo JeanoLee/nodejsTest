@@ -11,10 +11,16 @@ block content
                 account = result[0]
                 console.log(result)
                 document.getElementById('metamask_id').innerHTML = account
-            })
-            
-            
+            }) 
         }
+
+        ethereum.on('accountsChanged', (accounts)=>{
+            prev_account = document.getElementById('metamask_id').innerHTML;
+            alert("계정정보가 바뀌었습니다. ("
+                    +prev_account +") -> ("
+                    +accounts[0]+")")
+            document.getElementById('metamask_id').innerHTML = accounts[0]
+        })
 
     
     h1 #{title}
