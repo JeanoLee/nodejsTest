@@ -1,0 +1,9 @@
+extends layout
+
+block content
+
+    h1 #{title}
+    p 현재 투표 수 : #{votingCount}
+    p 투표 종료시간 : #{votingClose}
+    each subject in subjectList
+        li #{subject.title}  : #{subject.point}
