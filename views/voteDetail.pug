@@ -211,6 +211,7 @@ block content
             }
         ]
     script.
+        web3 = new Web3()
         var account=""
         if (typeof window.ethereum !== 'undefined') {
             window.ethereum.request({ method: 'eth_requestAccounts' }).then((result)=>{
@@ -249,12 +250,12 @@ block content
             //  - InputData 인코딩 (Contract ABI, web3js)
             abi = JSON.parse(document.getElementById('voteABI').innerHTML)
             contractAddress = document.getElementById('contractAddress').value
-            
+            input_data=''
             ethereum.request( {
                 method : 'eth_sendTransaction',
                 params :[{
                     from:  account,
-                    data:'',
+                    data: input_data,
                     to: contractAddress
                 }]
             }).then((result)=>{
