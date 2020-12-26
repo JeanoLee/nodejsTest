@@ -26,8 +26,14 @@ router.get("/", async function(req,res,next){
 router.post('/regist', function(req,res,next){
     tokenAddress = req.body.newTokenAddress;
     if(tokenAddress != ''){
-        tokenList.push({tokenAddress:tokenAddress});
-        fs.writeFileSync('data/tokenList.json',JSON.stringify(tokenList));
+        sameToken = tokenList.find( element =>{
+            return element.tokenAddress == tokenAddress
+        })
+        if(sameToken === undefined){
+            tokenList.push({tokenAddress:tokenAddress});
+            fs.writeFileSync('data/tokenList.json',JSON.stringify(tokenList));
+        }
+        
     }
     res.redirect('/wallet');
 
