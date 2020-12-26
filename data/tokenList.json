@@ -1,5 +1,1 @@
-[
-    {
-        "tokenAddress":"0x623DD58fd52253b0152020528f4AE84Bf421dB17"
-    }
-]
+[{"tokenAddress":"0x623DD58fd52253b0152020528f4AE84Bf421dB17","name":"MyToken888","symbol":"MT8"},{"tokenAddress":"0xEad8FfD9E13420bcD8f5f8a365FD942E45a6634a","name":"TFTToken","symbol":"TFT"},{"tokenAddress":"0x516F12E29f84C2eD255ba31A9dF42D7afE0307a3","name":"TFTToken","symbol":"TFT"}]
