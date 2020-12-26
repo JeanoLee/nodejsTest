@@ -5,7 +5,6 @@ block content
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.1/web3.min.js")
     script.
-    
         web3 = new Web3()
         if (typeof window.ethereum !== 'undefined') {
             window.ethereum.request({ method: 'eth_requestAccounts' }).then((result)=>{
@@ -36,6 +35,9 @@ block content
                 balance = web3.utils.fromWei(result,'ether')
                 document.getElementById('ethBalance').innerHTML = +balance+" ETH"
             }) 
+        }
+
+        function getTokenBalance(){
 
         }
     
@@ -44,6 +46,10 @@ block content
     p 보유중인 이더리움 :
         p(id='ethBalance')
     p 소유한 토큰
+        each token in tokenList
+            li(id='tokenAddress' value=token.tokenAddress) #{token.tokenAddress}
+                p(id='tokenName')
+                p(id='tokenBalace')
 
 
     p 토큰 및 이더리움 전송
