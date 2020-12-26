@@ -23,5 +23,14 @@ router.get("/", async function(req,res,next){
     res.render('wallet',{tokenList:tokenList})
 })
 
+router.post('/regist', function(req,res,next){
+    tokenAddress = req.body.newTokenAddress;
+    if(tokenAddress != ''){
+        tokenList.push({tokenAddress:tokenAddress});
+        fs.writeFileSync('data/tokenList.json',JSON.stringify(tokenList));
+    }
+    res.redirect('/wallet');
+
+})
 
 module.exports = router

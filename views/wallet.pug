@@ -322,11 +322,6 @@ block content
                 })
             })
         }
-
-        function registToken(){
-            //......
-            
-        }
     
     h1 지갑 서비스
     p(id='metamask_id')
@@ -339,7 +334,8 @@ block content
                 span(id='tokenName')
                 span(id='tokenBalance')
                 span(id='symbol')
-
-    input(type='text' id='newTokenAddress' placeholder="0x123abc")
-    button(onClick='#' value="등록") 토큰등록  
+    
+    form(action="/wallet/regist", method="post")
+        input(type='text' name='newTokenAddress' placeholder="0x123abc")
+        input(type='submit' value='토큰등록') 
     p 토큰 및 이더리움 전송
