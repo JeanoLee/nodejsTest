@@ -309,6 +309,32 @@ block content
 
         function sendToken(contract_address, to ,amount){
             alert(to+" 에게" +amount+" token 전송 "+"컨트랙트 주소 : "+contract_address)
+
+            //사용자의 계정(주소) 획득
+            account = document.getElementById('metamask_id').innerHTML;
+
+            //ABI 정보를 통한 컨트랙트 객체 생성
+            abi = JSON.parse(document.getElementById('tokenABI').innerHTML)
+            contract = new web3.eth.Contract(abi, contract_address)
+
+            //토큰의 단위 변경 (Ether to Wei)
+            amount = web3.utils.toWei(amount,'ether')
+
+            //컨트랙트에 전송할 데이터 인코딩(transfer 함수 호출을 위한 정보)
+            input_data = contract.methods.transfer(to, amount).encodeABI()
+
+            // JSON-RPC를 이용한 트랜잭션 전송 요청
+            ethereum.request( {
+                method :'eth_sendTransaction',
+                params:[{
+                    to:     contract_address,
+                    data:  input_data,
+                    from:   account
+                }]
+            }).then(result =>{
+                //전송 완료 후의 Transaction Hash 값
+                console.log(result)
+            })
         }
 
         function sendEth(to, amount){
