@@ -307,8 +307,8 @@ block content
             })
         }
 
-        function sendToken(contract, to ,amount){
-
+        function sendToken(contract_address, to ,amount){
+            alert(to+" 에게" +amount+" token 전송 "+"컨트랙트 주소 : "+contract_address)
         }
 
         function sendEth(to, amount){
@@ -335,8 +335,8 @@ block content
                 sendEth(to, amount)
             } else
             {
-
-
+                contract_address = document.querySelectorAll('select')[0].value;
+                sendToken(contract_address, to, amount);
             }
         }
         
