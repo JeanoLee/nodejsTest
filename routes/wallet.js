@@ -19,6 +19,15 @@ function loadTokenList(){
 }
 loadTokenList();
 
+function deleteToken(address) {
+    let data = fs.readFileSync('data/tokenList.json')
+    tokenList = JSON.parse(data);
+
+    token_idx = tokenList.findIndex( element =>{return element.tokenAddress === address})
+    tokenList.splice(token_idx,1)
+    fs.writeFileSync('data/tokenList.json',JSON.stringify(tokenList))
+    console.log(tokenList)
+}
 
 router.get("/", async function(req,res,next){
     res.render('wallet',{tokenList:tokenList})
@@ -44,6 +53,11 @@ router.post('/regist', async function(req,res,next){
     }
     res.redirect('/wallet');
 
+})
+
+router.delete('/deleteTokenInfo', async function(req,res,next){
+    console.log(req.body)
+    deleteToken(req.body.address)
 })
 
 module.exports = router

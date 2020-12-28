@@ -254,6 +254,8 @@ block content
         ]
 
     script(src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.1/web3.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/fetch/3.5.0/fetch.min.js")
+
     script.
         web3 = new Web3()
         if (typeof window.ethereum !== 'undefined') {
@@ -293,8 +295,19 @@ block content
             let option=document.querySelector('option[value="'+contractAddress+'"]')
             contractElement.remove()
             option.remove();
+            fetch('/wallet/deleteTokenInfo',{
+                method:'delete',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    address: contractAddress,
+                })
+            }).then((response)=>{
+                console.log(response)
+            })
         }
-        
+
         function getTokenBalance(){
             list = document.querySelectorAll('div[id="tokenAddress"]')
             userAccount = document.getElementById('metamask_id').innerText
