@@ -313,6 +313,18 @@ block content
 
         function sendEth(to, amount){
             alert(to+" 에게" +amount+" 이더리움 전송 ")
+            account = document.getElementById('metamask_id').innerHTML;
+            amount_hex = web3.utils.toHex( web3.utils.toWei(amount,'ether') )
+            ethereum.request( {
+                method : 'eth_sendTransaction',
+                params :[{
+                    from:  account,
+                    to: to,
+                    value: amount_hex
+                }]
+            }).then((result)=>{
+                console.log(result)
+            })
 
         }
         function sendCurrency(){
