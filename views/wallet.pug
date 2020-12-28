@@ -333,6 +333,10 @@ block content
             if(document.querySelectorAll('select')[0].value == 'ETH')
             {
                 sendEth(to, amount)
+            } else
+            {
+
+
             }
         }
         
@@ -358,7 +362,7 @@ block content
         select(name="currency")
             option(value='ETH') Ethereum (ETH)
             each token in tokenList
-                option(value=token.address) #{token.name} (#{token.symbol})
+                option(value=token.tokenAddress) #{token.name} (#{token.symbol})
         button(onClick='sendCurrency()') 토큰 전송
 
 
