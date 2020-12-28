@@ -289,20 +289,35 @@ block content
             }) 
         }
 
+        function deleteTokenInfo(contractElement, contractAddress){
+            let option=document.querySelector('option[value="'+contractAddress+'"]')
+            contractElement.remove()
+            option.remove();
+        }
+        
         function getTokenBalance(){
             list = document.querySelectorAll('div[id="tokenAddress"]')
             userAccount = document.getElementById('metamask_id').innerText
             list.forEach((tokenAddress)=>{
-                contractAddress = tokenAddress.attributes.value.value;
-                //name, symbol, balance
-                abi = JSON.parse(document.getElementById('tokenABI').innerHTML)
-                contract = new web3.eth.Contract(abi, contractAddress)
-                //GetBalcance
-                ethereum.request( {method : 'eth_call',params :[{data: contract.methods.balanceOf(userAccount).encodeABI() ,to: contractAddress}]
-                }).then((result)=>{
-                    balance = web3.utils.fromWei(result,'ether')
-                    console.log("tokenBalance:"+balance)
-                    tokenAddress.children.tokenBalance.innerText = balance+" ";
+                let contractAddress = tokenAddress.attributes.value.value;
+                let abi = JSON.parse(document.getElementById('tokenABI').innerHTML)
+                let contract = new web3.eth.Contract(abi, contractAddress)
+                //컨트랙트가 유효한 컨트랙트인지 확인 필요
+                ethereum.request( {method: 'eth_getCode', params:[contractAddress]})
+                .then( (result) => {
+                    console.log(contractAddress+"컨트랙트 코드 조회"+result)
+                    if(result=='0x'){
+                        deleteTokenInfo(tokenAddress,contractAddress)
+                    }
+                    else{
+                        //Get Balcance
+                        ethereum.request( {method : 'eth_call',params :[{data: contract.methods.balanceOf(userAccount).encodeABI() ,to: contractAddress}]
+                        }).then((result)=>{
+                            balance = web3.utils.fromWei(result,'ether')
+                            console.log("tokenBalance:"+balance)
+                            tokenAddress.children.tokenBalance.innerText = balance+" ";
+                        })
+                    }
                 })
             })
         }
